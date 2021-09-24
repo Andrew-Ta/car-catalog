@@ -52,7 +52,7 @@
       $errorMsg .= "<li>Enter a year.</li>";
       $boolValidate = false;
     } else {
-      if(!range(1900, $yearrange)){
+      if(!range(1900, $currentyear)){
         $errorMsg .= "<li>Enter a year between 1900 - $currentyear.</li>";
         $boolValidate = false;
       }
