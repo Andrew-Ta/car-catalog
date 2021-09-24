@@ -88,14 +88,15 @@ $currentYear = date("Y");
 <?php
 
 $result = mysqli_query($con, "SELECT * FROM ata_catalog") or die (mysqli_error($con));  
-  
+
 //filtering the DB results
-$displayby = $_GET['displayby'];
-$displayvalue = $_GET['displayvalue'];
-$searchterm = $_GET['searchterm'];
-$random = $_GET['random'];
-$min = $_GET['min'];
-$max = $_GET['max'];
+$displayby = (isset($_GET['displayby'])) ? $_GET['displayby'] : "";
+$displayvalue = (isset($_GET['displayvalue'])) ? $_GET['displayvalue'] : "";
+$searchterm = (isset($_GET['searchterm'])) ? $_GET['searchterm'] : "";
+$random = (isset($_GET['random'])) ? $_GET['random'] : "";
+$min = (isset($_GET['min'])) ? $_GET['min'] : ""];
+$max = (isset($_GET['max'])) ? $_GET['max'] : "";
+$errorMsg = "";
   
 if(isset($_GET['YearRange'])){
   $minYear = $_GET['minYear'];
@@ -150,6 +151,7 @@ if(isset($searchterm)){
   
 
 //HEADER UPDATES TO SEARCH TERMS/FILTER OPTIONS
+$resultTitle = "";
   //reults for : "user filter options"
   if(isset($displayvalue)){
     $resultTitle = "for: \"$displayvalue\"";
