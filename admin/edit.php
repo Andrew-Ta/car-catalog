@@ -8,6 +8,10 @@
   
   $errorMsg = "";
   $successMsg = "";
+  $queryType = "";
+  $queryMake = "";
+  $model = "";
+  $zerotosixty = "";
 
   if(isset($_POST['submit'])){
   
@@ -322,7 +326,7 @@
       <div class="col-md-4"> <!--right column-->
         <div class="form-group">
           <label for="description">Description:</label>
-          <textarea name="description" class="form-control"><?php echo $description ?></textarea>
+          <textarea name="description" class="form-control"><?php echo (isset($description)) ? $description : ''?></textarea>
         </div>
         <div class="form-group">
           <label for="submit"></label>
