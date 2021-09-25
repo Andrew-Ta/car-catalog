@@ -184,7 +184,7 @@ if($searchterm != ""){
 echo "<h5 class=\"\">Results $resultTitle </h5><hr><br/>";
 echo "<p style=\"color:firebrick;\"> $errorMsg </p>";
 
-while ($row = mysqli_fetch_array(!is_null($result) ? $result  : $defaultresult)){
+while ($row = mysqli_fetch_array($result)){
   $cid = $row['ata_cid'];
   $type = $row['ata_type'];
   $make = $row['ata_make'];
