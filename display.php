@@ -9,7 +9,10 @@ include ("includes/header.php");
   </div>
 
 <?php
-$random = $_GET['random'];
+if(isset($_GET['random'])){
+  $random = $_GET['random'];
+}
+
   
 if(isset($random)){
   $result = mysqli_query($con, "SELECT * FROM ata_catalog ORDER BY RAND() LIMIT 1") or die (mysqli_error($con));

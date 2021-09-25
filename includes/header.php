@@ -11,7 +11,7 @@ include("mysql_connect.php");// here we include the connection script; since thi
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Car catalog website made with PHP">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="favicon.ico"/>
    
     <!--  This CONSTANT is defined in your mysql_connect.php file. -->
     <title><?php echo APP_NAME; ?></title>
