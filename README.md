@@ -21,12 +21,14 @@ Admin features are locked behind a secure admin login page. Once logged in, an a
 ### How to access your own database:
 
 - If you are using this code to make your own catalog, you must modify the mysql_connect.php file to connect to your database.
+- Add 3 new folders for your images: thumbs, display, and uploads. 
 - Change the BASE_URL to match your own.
 - Change the session_id() to what ever you like or choose a more secure method.
 
 ### In Progress:
 
 - Fix the undefined variable errors
+- Test for bugs
 
 ### Languages Used:
 
