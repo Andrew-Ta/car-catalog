@@ -1,4 +1,5 @@
 <?php
+ob_start();
 include("mysql_connect.php");// here we include the connection script; since this file(header.php) is included at the top of every page we make, the connection will then also be included. Also, config options like BASE_URL are also available to us.
 
 ?>

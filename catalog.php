@@ -87,16 +87,38 @@ $currentYear = date("Y");
 <div class="col-md-9">
 <?php
 
-$result = mysqli_query($con, "SELECT * FROM ata_catalog") or die (mysqli_error($con));  
-  
+$errorMsg = "";
+
+
 //filtering the DB results
-$displayby = $_GET['displayby'];
-$displayvalue = $_GET['displayvalue'];
-$searchterm = $_GET['searchterm'];
-$random = $_GET['random'];
-$min = $_GET['min'];
-$max = $_GET['max'];
-  
+//DEFAULT return all entries
+$result = mysqli_query($con, "SELECT * FROM ata_catalog") or die (mysqli_error($con));
+
+if(isset($_GET['displayby'])){
+  $displayby = $_GET['displayby'];
+}
+
+if(isset($_GET['displayvalue'])){
+  $displayvalue = $_GET['displayvalue'];
+}
+
+if(isset($_GET['searchterm'])){
+  $searchterm = $_GET['searchterm'];
+}
+
+if(isset($_GET['random'])){
+  $random = $_GET['random'];
+}
+
+if(isset($_GET['min'])){
+  $min = $_GET['min'];
+}
+
+if(isset($_GET['max'])){
+  $max = $_GET['max'];
+}
+
+// USER ENTERED MINYEAR MAXYEAR
 if(isset($_GET['YearRange'])){
   $minYear = $_GET['minYear'];
   $maxYear = $_GET['maxYear'];  
@@ -119,51 +141,50 @@ if(isset($_GET['YearRange'])){
   if(isset($minYear) && isset($maxYear) && ($minYear == "") &&($maxYear =="")){
     $errorMsg="Enter a min and max year.";
   }
-  
-  
-    
 }
-  
+
+//by MAKE drop down
 if(isset($displayby) && isset($displayvalue)) {
 	$result = mysqli_query($con, "SELECT * FROM ata_catalog WHERE $displayby LIKE '$displayvalue'") or die (mysqli_error($con));
 }
 
+// by premade YEAR Ranges
 if(isset($min) && isset($max)) {
 	$result = mysqli_query($con, "SELECT * FROM ata_catalog WHERE ata_year BETWEEN '$min' AND '$max' ORDER BY ata_year") or die (mysqli_error($con));
-  
-
-  
 }  
 
-  
-if(isset($searchterm)){
-  $searchterm=$_GET['searchterm'];
+// by SEARCHTERM
+$searchterm = (isset($_GET['searchterm'])) ? $_GET['searchterm'] : "";
+if(isset($_GET['searchterm'])){
+  $searchterm = $_GET['searchterm'];
   $result = mysqli_query($con, "SELECT * FROM ata_catalog 
                                       WHERE ata_type LIKE '%$searchterm%'                 
                                       OR ata_make LIKE '%$searchterm%' 
                                       OR ata_model LIKE '%$searchterm%' 
                                       OR ata_year LIKE '%$searchterm%'") or die (mysqli_error($con));
-    if((mysqli_num_rows($result)) == 0){
-      $errorMsg = "No results found.";
-    }
+  if((mysqli_num_rows($result)) == 0){
+    $errorMsg = "No results found."; 
+  }
 }
-  
+
+// RANDOM WIDGET
+$random = (isset($_GET['random'])) ? $_GET['random'] : "";  
 
 //HEADER UPDATES TO SEARCH TERMS/FILTER OPTIONS
-  //reults for : "user filter options"
-  if(isset($displayvalue)){
-    $resultTitle = "for: \"$displayvalue\"";
-  }
-    //search bar searchterm
-  if(isset($searchterm)){
-    $resultTitle = "for: \"$searchterm\"";
-  }
-
-  
+$resultTitle = "";
+//reults for : "user filter options"
+if(isset($displayvalue) && $displayvalue != ""){
+  $resultTitle = "for: \"$displayvalue\"";
+}
+  //search bar searchterm
+if($searchterm != ""){
+  $resultTitle = "for: \"$searchterm\"";
+}
   
 echo "<h5 class=\"\">Results $resultTitle </h5><hr><br/>";
 echo "<p style=\"color:firebrick;\"> $errorMsg </p>";
-while ($row = mysqli_fetch_array($result)){
+
+while ($row = mysqli_fetch_array(!is_null($result) ? $result  : $defaultresult)){
   $cid = $row['ata_cid'];
   $type = $row['ata_type'];
   $make = $row['ata_make'];
