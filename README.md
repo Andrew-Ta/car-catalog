@@ -26,7 +26,7 @@ Admin features are locked behind a secure admin login page. Once logged in, an a
 
 ### In Progress:
 
-- I am integrating Firebase to this project. I will be using their database and hosting services.
+- Fix the undefined variable errors
 
 ### Languages Used:
 
