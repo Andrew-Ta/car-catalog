@@ -19,8 +19,9 @@ if(isset($random)){
 }
 
 
-$catalogID = $_GET['cid'];
+
 if(isset($catalogID)){
+  $catalogID = $_GET['cid'];
   $result = mysqli_query($con, "SELECT * FROM ata_catalog WHERE ata_cid = '$catalogID'") or die (mysqli_error($con));  
 }
 
